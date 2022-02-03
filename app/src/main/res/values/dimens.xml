@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="recyclerViewPadding">16dp</dimen>
+    <dimen name="userTextSize">36sp</dimen>
+    <dimen name="user_marginTop">10dp</dimen>
+</resources>
