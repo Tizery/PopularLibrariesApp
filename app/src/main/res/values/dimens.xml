@@ -3,4 +3,5 @@
     <dimen name="recyclerViewPadding">16dp</dimen>
     <dimen name="userTextSize">36sp</dimen>
     <dimen name="user_marginTop">10dp</dimen>
+    <dimen name="recyclerViewPaddingStart">10dp</dimen>
 </resources>

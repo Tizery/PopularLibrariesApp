@@ -1,9 +1,15 @@
 package com.example.popularlibrariesapp.repository
 
-class GithubUsersRepo {
-    private val repositories = (1..50).map { GithubUser("login $it") }
+import io.reactivex.rxjava3.core.Observable
 
-    fun getUsers(): List<GithubUser> {
-        return repositories
-    }
+class GithubUsersRepo {
+    private val repositories = listOf(
+        GithubUser("login1"),
+        GithubUser("login2"),
+        GithubUser("login3"),
+        GithubUser("login4"),
+        GithubUser("login5")
+    )
+
+    fun getUsers(): Observable<List<GithubUser>> = Observable.just(repositories)
 }
