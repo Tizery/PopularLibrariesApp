@@ -2,24 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/avatarImageView"
-        android:layout_width="@dimen/avatarImageView_width_and_height"
-        android:layout_height="@dimen/avatarImageView_width_and_height"
-        android:layout_margin="@dimen/default_margin"
-        tools:background="@color/black" />
-
     <TextView
-        android:id="@+id/textViewLogin"
+        android:id="@+id/textViewRepoName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
-        android:textColor="@color/black"
-        tools:text="@string/app_name" />
+        tools:text="Название репозитория" />
 
 </LinearLayout>

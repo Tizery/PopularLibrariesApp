@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.popularlibrariesapp.databinding.FragmentUsersBinding
 import com.example.popularlibrariesapp.presenter.UsersPresenter
-import com.example.popularlibrariesapp.repository.GithubUsersRepo
+import com.example.popularlibrariesapp.model.GithubUserModel
+import com.example.popularlibrariesapp.network.ApiHolder
+import com.example.popularlibrariesapp.domain.users.GithubUsersRepository
+import com.example.popularlibrariesapp.ui.image.GlideImageLoader
 import com.example.popularlibrariesapp.view.UsersView
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -22,11 +26,14 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
-            GithubUsersRepo(),
+            GithubUsersRepository(ApiHolder.githubApiService),
             App.instance.router
         )
     }
-    private var adapter: UsersRecyclerViewAdapter? = null
+
+    private val adapter by lazy {
+        UsersAdapter(GlideImageLoader(), presenter::onUserClicked)
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -43,25 +50,31 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.usersRecycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.usersRecycler.adapter = adapter
     }
 
-    override fun init() {
-        with(binding) {
-            recyclerViewUsers.layoutManager = LinearLayoutManager(requireContext())
-            adapter = UsersRecyclerViewAdapter(presenter.usersListPresenter)
-            recyclerViewUsers.adapter = adapter
+    override fun updateList(users: List<GithubUserModel>) {
+        adapter.submitList(users)
+    }
+
+
+
+    override fun showError(message: String?) {
+        Toast.makeText(requireContext(),message.orEmpty(),Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+
+        private const val KEY_INIT_PARAMS = "KEY_INIT_PARAMS"
+        fun newInstance(): UsersFragment {
+            return UsersFragment()
         }
     }
 
-    override fun updateList() {
-        adapter?.notifyDataSetChanged()
+    override fun backPressed(): Boolean {
+        presenter.backPressed()
+        return true
     }
 
-    override fun backPressed() = presenter.backPressed()
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = UsersFragment()
-    }
 }
