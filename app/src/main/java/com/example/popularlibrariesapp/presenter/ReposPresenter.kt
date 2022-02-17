@@ -19,7 +19,7 @@ class ReposPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        reposRepository.getRepos(userModel.reposUrl)
+        reposRepository.getRepos(userModel)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
