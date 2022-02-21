@@ -5,13 +5,13 @@ import com.example.popularlibrariesapp.ui.ReposFragment
 import com.example.popularlibrariesapp.ui.UsersFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
-object AppScreens {
+class AppScreens : IScreens {
 
-    fun usersScreen() = FragmentScreen {
+    override fun usersScreen() = FragmentScreen {
         UsersFragment.newInstance()
     }
 
-    fun reposScreen(user: GithubUserModel) = FragmentScreen {
+     override fun reposScreen(user: GithubUserModel) = FragmentScreen {
         ReposFragment.newInstance(user)
     }
 

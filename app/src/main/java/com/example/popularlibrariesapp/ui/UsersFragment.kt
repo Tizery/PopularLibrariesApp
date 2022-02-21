@@ -7,11 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.popularlibrariesapp.databinding.FragmentUsersBinding
-import com.example.popularlibrariesapp.presenter.UsersPresenter
 import com.example.popularlibrariesapp.model.GithubUserModel
-import com.example.popularlibrariesapp.network.ApiHolder
-import com.example.popularlibrariesapp.domain.users.GithubUsersRepository
-import com.example.popularlibrariesapp.network.NetworkStatus
+import com.example.popularlibrariesapp.presenter.UsersPresenter
 import com.example.popularlibrariesapp.ui.image.GlideImageLoader
 import com.example.popularlibrariesapp.view.UsersView
 import moxy.MvpAppCompatFragment
@@ -26,14 +23,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         }
 
     private val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(
-            GithubUsersRepository(
-                ApiHolder.githubApiService,
-                App.instance.database.userDao,
-                NetworkStatus(requireContext())
-            ),
-            App.instance.router
-        )
+        App.instance.appComponent.providesUsersPresenter()
     }
 
     private val adapter by lazy {

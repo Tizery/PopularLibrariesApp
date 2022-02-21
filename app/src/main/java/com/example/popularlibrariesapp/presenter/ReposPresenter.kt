@@ -4,20 +4,25 @@ import android.util.Log
 import com.example.popularlibrariesapp.domain.repos.IGithubReposRepository
 import com.example.popularlibrariesapp.model.GithubRepoModel
 import com.example.popularlibrariesapp.model.GithubUserModel
+import com.example.popularlibrariesapp.ui.App
 import com.example.popularlibrariesapp.view.ReposView
 import com.github.terrakok.cicerone.Router
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
-class ReposPresenter(
-    private val userModel: GithubUserModel,
-    private val reposRepository: IGithubReposRepository,
+class ReposPresenter @AssistedInject constructor(
+    @Assisted private val userModel: GithubUserModel,
     private val router: Router,
-) : MvpPresenter<ReposView>() {
+    private val reposRepository: IGithubReposRepository
+    ) : MvpPresenter<ReposView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+        App.instance.appComponent.inject(this)
 
         reposRepository.getRepos(userModel)
             .subscribeOn(Schedulers.io())
@@ -42,4 +47,9 @@ class ReposPresenter(
         return true
 
     }
+}
+
+@AssistedFactory
+interface ReposPresenterFactory{
+    fun assistedPresenter(userModel: GithubUserModel) : ReposPresenter
 }

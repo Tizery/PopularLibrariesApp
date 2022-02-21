@@ -1,20 +1,20 @@
 package com.example.popularlibrariesapp.presenter
 
-import com.example.popularlibrariesapp.model.GithubUserModel
 import com.example.popularlibrariesapp.domain.users.IGithubUsersRepository
-import com.example.popularlibrariesapp.ui.screens.AppScreens
+import com.example.popularlibrariesapp.model.GithubUserModel
+import com.example.popularlibrariesapp.ui.screens.IScreens
 import com.example.popularlibrariesapp.view.UsersView
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class UsersPresenter(
+class UsersPresenter @Inject constructor(
+    private val router: Router,
     private val usersRepository: IGithubUsersRepository,
-    private val router: Router
-) :
-    MvpPresenter<UsersView>() {
-
+    private val screens :IScreens
+) : MvpPresenter<UsersView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -36,7 +36,7 @@ class UsersPresenter(
     }
 
     fun onUserClicked(githubUserModel: GithubUserModel) {
-        router.navigateTo(AppScreens.reposScreen(githubUserModel))
+        router.navigateTo(screens.reposScreen(githubUserModel))
     }
 
     fun backPressed(): Boolean {
