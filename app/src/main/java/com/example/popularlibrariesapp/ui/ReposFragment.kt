@@ -13,6 +13,7 @@ import com.example.popularlibrariesapp.model.GithubRepoModel
 import com.example.popularlibrariesapp.presenter.ReposPresenter
 import com.example.popularlibrariesapp.model.GithubUserModel
 import com.example.popularlibrariesapp.network.ApiHolder
+import com.example.popularlibrariesapp.network.NetworkStatus
 import com.example.popularlibrariesapp.view.ReposView
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -42,7 +43,11 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener{
     private val presenter by moxyPresenter {
         ReposPresenter(
             userModel,
-            GithubReposRepository(ApiHolder.githubApiService),
+            GithubReposRepository(
+                ApiHolder.githubApiService,
+                App.instance.database.reposDao,
+                NetworkStatus(requireContext())
+            ),
             App.instance.router)
 
     }

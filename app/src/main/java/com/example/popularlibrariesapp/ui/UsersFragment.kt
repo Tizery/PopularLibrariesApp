@@ -11,6 +11,7 @@ import com.example.popularlibrariesapp.presenter.UsersPresenter
 import com.example.popularlibrariesapp.model.GithubUserModel
 import com.example.popularlibrariesapp.network.ApiHolder
 import com.example.popularlibrariesapp.domain.users.GithubUsersRepository
+import com.example.popularlibrariesapp.network.NetworkStatus
 import com.example.popularlibrariesapp.ui.image.GlideImageLoader
 import com.example.popularlibrariesapp.view.UsersView
 import moxy.MvpAppCompatFragment
@@ -24,9 +25,13 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
             return _binding!!
         }
 
-    val presenter: UsersPresenter by moxyPresenter {
+    private val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
-            GithubUsersRepository(ApiHolder.githubApiService),
+            GithubUsersRepository(
+                ApiHolder.githubApiService,
+                App.instance.database.userDao,
+                NetworkStatus(requireContext())
+            ),
             App.instance.router
         )
     }
@@ -59,9 +64,8 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
 
-
     override fun showError(message: String?) {
-        Toast.makeText(requireContext(),message.orEmpty(),Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), message.orEmpty(), Toast.LENGTH_SHORT).show()
     }
 
     companion object {
