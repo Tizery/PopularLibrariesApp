@@ -4,21 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.popularlibrariesapp.databinding.FragmentReposBinding
-import com.example.popularlibrariesapp.domain.repos.GithubReposRepository
 import com.example.popularlibrariesapp.model.GithubRepoModel
-import com.example.popularlibrariesapp.presenter.ReposPresenter
 import com.example.popularlibrariesapp.model.GithubUserModel
-import com.example.popularlibrariesapp.network.ApiHolder
-import com.example.popularlibrariesapp.network.NetworkStatus
 import com.example.popularlibrariesapp.view.ReposView
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener{
+class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener {
 
     companion object {
 
@@ -41,15 +36,7 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener{
         get() = _binding!!
 
     private val presenter by moxyPresenter {
-        ReposPresenter(
-            userModel,
-            GithubReposRepository(
-                ApiHolder.githubApiService,
-                App.instance.database.reposDao,
-                NetworkStatus(requireContext())
-            ),
-            App.instance.router)
-
+        App.instance.appComponent.providesReposPresenterFactory().assistedPresenter(userModel)
     }
 
     private val adapter by lazy {

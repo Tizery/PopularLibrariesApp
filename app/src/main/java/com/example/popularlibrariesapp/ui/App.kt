@@ -1,9 +1,8 @@
 package com.example.popularlibrariesapp.ui
 
 import android.app.Application
-import com.example.popularlibrariesapp.db.GithubDatabase
-import com.github.terrakok.cicerone.Cicerone
-import com.github.terrakok.cicerone.Router
+import com.example.popularlibrariesapp.di.component.DaggerAppComponent
+import com.example.popularlibrariesapp.di.modules.ContextModule
 
 class App : Application() {
 
@@ -11,15 +10,10 @@ class App : Application() {
         lateinit var instance: App
     }
 
-    private val cicerone: Cicerone<Router> by lazy {
-        Cicerone.create()
-    }
-
-    val navigatorHolder get() = cicerone.getNavigatorHolder()
-    val router get() = cicerone.router
-
-    val database by lazy {
-        GithubDatabase.getInstance(this)
+    val appComponent by lazy {
+        DaggerAppComponent.builder()
+            .contextModule(ContextModule(this))
+            .build()
     }
 
     override fun onCreate() {

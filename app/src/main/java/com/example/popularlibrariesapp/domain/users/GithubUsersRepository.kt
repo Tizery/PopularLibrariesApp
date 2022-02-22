@@ -6,8 +6,9 @@ import com.example.popularlibrariesapp.model.GithubUserModel
 import com.example.popularlibrariesapp.network.GithubApiService
 import com.example.popularlibrariesapp.network.NetworkStatus
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 
-class GithubUsersRepository(
+class GithubUsersRepository @Inject constructor(
     private val githubApiService: GithubApiService,
     private val userDao: UserDao,
     private val networkStatus: NetworkStatus,
