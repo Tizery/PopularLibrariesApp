@@ -2,6 +2,7 @@ package com.example.popularlibrariesapp.presenter
 
 import com.example.popularlibrariesapp.domain.users.IGithubUsersRepository
 import com.example.popularlibrariesapp.model.GithubUserModel
+import com.example.popularlibrariesapp.ui.App
 import com.example.popularlibrariesapp.ui.screens.IScreens
 import com.example.popularlibrariesapp.view.UsersView
 import com.github.terrakok.cicerone.Router
@@ -37,6 +38,11 @@ class UsersPresenter @Inject constructor(
 
     fun onUserClicked(githubUserModel: GithubUserModel) {
         router.navigateTo(screens.reposScreen(githubUserModel))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        App.instance.destroyUserScope()
     }
 
     fun backPressed(): Boolean {

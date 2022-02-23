@@ -15,7 +15,6 @@ import javax.inject.Singleton
         DatabaseModule::class,
         NavigationModule::class,
         NetworkModule::class,
-        RepositoryModule::class
     ]
 )
 
@@ -24,16 +23,10 @@ interface AppComponent {
 
     fun providesMainPresenter() : MainPresenter
 
-    fun providesUsersPresenter() : UsersPresenter
-
-    fun providesReposPresenterFactory() : ReposPresenterFactory
+    fun userSubcomponent(): UserSubcomponent
 
     fun inject(mainActivity: MainActivity)
 
     fun inject(mainPresenter: MainPresenter)
-
-    fun inject(usersPresenter: UsersPresenter)
-
-    fun inject(reposPresenter: ReposPresenter)
 
 }
