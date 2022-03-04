@@ -10,15 +10,15 @@ import javax.inject.Inject
 
 class GithubReposCache @Inject constructor(
     private val reposDao: ReposDao
-) {
+) : IGithubReposCache {
 
-    fun saveRepos(repos: List<GithubRepoModel>): Single<List<GithubRepoModel>> {
+    override fun saveRepos(repos: List<GithubRepoModel>): Single<List<GithubRepoModel>> {
         reposDao.insert(repos.map { GithubRepoEntity(it.id, it.name, it.owner.ownerId) })
         return Single.just(repos)
 
     }
 
-    fun getRepos(user : GithubUserModel): Single<List<GithubRepoModel>> {
+    override fun getRepos(user : GithubUserModel): Single<List<GithubRepoModel>> {
        return reposDao.getAll(user.id)
            .map { list ->
                list.map { repo -> GithubRepoModel(repo.name, repo.id, Owner(repo.userId)) }
