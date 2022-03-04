@@ -1,5 +1,6 @@
 package com.example.popularlibrariesapp.di.modules
 
+import com.example.popularlibrariesapp.db.cache.GithubReposCache
 import com.example.popularlibrariesapp.db.dao.ReposDao
 import com.example.popularlibrariesapp.di.scope.RepoScope
 import com.example.popularlibrariesapp.domain.repos.GithubReposRepository
@@ -16,9 +17,9 @@ class RepoModule {
     @RepoScope
     fun provideRepoRepository(
         apiService: GithubApiService,
-        reposDao: ReposDao,
+        reposCache: GithubReposCache,
         networkStatus: NetworkStatus
     ): IGithubReposRepository {
-        return GithubReposRepository(apiService, reposDao, networkStatus)
+        return GithubReposRepository(apiService, reposCache, networkStatus)
     }
 }
