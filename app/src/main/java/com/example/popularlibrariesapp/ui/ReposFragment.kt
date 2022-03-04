@@ -36,7 +36,8 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener {
         get() = _binding!!
 
     private val presenter by moxyPresenter {
-        App.instance.appComponent.providesReposPresenterFactory().assistedPresenter(userModel)
+        App.instance.initRepoSubcomponent()
+        App.instance.reposSubcomponent?.provideReposPresenterFactory()?.assistedPresenter(userModel)!!
     }
 
     private val adapter by lazy {
