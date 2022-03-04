@@ -1,5 +1,6 @@
 package com.example.popularlibrariesapp.di.modules
 
+import com.example.popularlibrariesapp.db.cache.GithubUsersCache
 import com.example.popularlibrariesapp.db.dao.UserDao
 import com.example.popularlibrariesapp.di.scope.UserScope
 import com.example.popularlibrariesapp.domain.users.GithubUsersRepository
@@ -16,9 +17,9 @@ class UserModule {
     @UserScope
     fun provideUserRepository(
         apiService: GithubApiService,
-        userDao: UserDao,
+        usersCache: GithubUsersCache,
         networkStatus: NetworkStatus
     ): IGithubUsersRepository {
-        return GithubUsersRepository(apiService, userDao, networkStatus)
+        return GithubUsersRepository(apiService, usersCache, networkStatus)
     }
 }

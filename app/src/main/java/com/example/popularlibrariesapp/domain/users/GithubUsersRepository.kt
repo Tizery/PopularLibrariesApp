@@ -1,7 +1,6 @@
 package com.example.popularlibrariesapp.domain.users
 
-import com.example.popularlibrariesapp.db.dao.UserDao
-import com.example.popularlibrariesapp.db.entity.GithubUserEntity
+import com.example.popularlibrariesapp.db.cache.GithubUsersCache
 import com.example.popularlibrariesapp.model.GithubUserModel
 import com.example.popularlibrariesapp.network.GithubApiService
 import com.example.popularlibrariesapp.network.NetworkStatus
@@ -10,7 +9,7 @@ import javax.inject.Inject
 
 class GithubUsersRepository @Inject constructor(
     private val githubApiService: GithubApiService,
-    private val userDao: UserDao,
+    private val usersCache: GithubUsersCache,
     private val networkStatus: NetworkStatus,
 ) : IGithubUsersRepository {
 
@@ -18,21 +17,12 @@ class GithubUsersRepository @Inject constructor(
         .flatMap { isOnline ->
             if (isOnline) {
                 githubApiService.getUsers()
-                    .flatMap { users ->
-                        userDao.insert(
-                            users.map {
-                                GithubUserEntity(it.id, it.login, it.avatarUrl ?: "", it.reposUrl)
-                            }
-                        )
-                        Single.just(users)
-                    }
+                    .flatMap(usersCache::saveUsers)
+
             } else {
-                userDao.getAll()
-                    .map { users ->
-                        users.map { user ->
-                            GithubUserModel(user.id, user.login, user.avatarUrl, user.reposUrl)
-                        }
-                    }
+                usersCache.getUsers()
             }
         }
 }
+
+
