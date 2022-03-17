@@ -8,9 +8,9 @@ import javax.inject.Inject
 
 class GithubUsersCache @Inject constructor(
     private val userDao: UserDao,
-) {
+) : IGithubUsersCache {
 
-    fun getUsers(): Single<List<GithubUserModel>> {
+    override fun getUsers(): Single<List<GithubUserModel>> {
         return userDao.getAll()
             .map { users ->
                 users.map { user ->
@@ -19,7 +19,7 @@ class GithubUsersCache @Inject constructor(
             }
     }
 
-    fun saveUsers(users: List<GithubUserModel>): Single<List<GithubUserModel>> {
+    override fun saveUsers(users: List<GithubUserModel>): Single<List<GithubUserModel>> {
         userDao.insert(
             users.map { GithubUserEntity(it.id, it.login, it.avatarUrl ?: "", it.reposUrl) }
         )
