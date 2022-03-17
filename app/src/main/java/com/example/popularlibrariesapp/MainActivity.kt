@@ -2,6 +2,7 @@ package com.example.popularlibrariesapp
 
 import android.os.Bundle
 import com.example.popularlibrariesapp.databinding.ActivityMainBinding
+import com.example.popularlibrariesapp.persistantsstorage.mediaStore
 import com.example.popularlibrariesapp.persistantsstorage.storageAccessFramework
 import com.example.popularlibrariesapp.ui.App
 import com.example.popularlibrariesapp.ui.BackButtonListener
@@ -31,7 +32,10 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         setContentView(binding?.root)
         App.instance.appComponent.inject(this)
 
-        storageAccessFramework(this)
+        /*//Для работы с Storage Access Framework
+        storageAccessFramework(this)*/
+
+        mediaStore(this)
     }
 
     override fun onResumeFragments() {
