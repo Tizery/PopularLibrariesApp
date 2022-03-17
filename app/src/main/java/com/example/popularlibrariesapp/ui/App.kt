@@ -28,10 +28,8 @@ class App : Application() {
         super.onCreate()
         instance = this
 
-
-
-        //Для работы с App-Specific Files
-        appSpecificFiles(this)
+        /*//Для работы с App-Specific Files
+        appSpecificFiles(this)*/
     }
 
     fun initUserSubcomponent(): UserSubcomponent {

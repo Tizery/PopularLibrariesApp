@@ -2,6 +2,7 @@ package com.example.popularlibrariesapp
 
 import android.os.Bundle
 import com.example.popularlibrariesapp.databinding.ActivityMainBinding
+import com.example.popularlibrariesapp.persistantsstorage.storageAccessFramework
 import com.example.popularlibrariesapp.ui.App
 import com.example.popularlibrariesapp.ui.BackButtonListener
 import com.example.popularlibrariesapp.view.MainView
@@ -29,6 +30,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         App.instance.appComponent.inject(this)
+
+        storageAccessFramework(this)
     }
 
     override fun onResumeFragments() {
