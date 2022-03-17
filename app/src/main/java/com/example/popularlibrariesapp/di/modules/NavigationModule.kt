@@ -14,25 +14,25 @@ class NavigationModule {
 
     @Provides
     @Singleton
-    fun providesCicerone() : Cicerone<Router> {
-       return Cicerone.create()
+    fun providesCicerone(): Cicerone<Router> {
+        return Cicerone.create()
     }
 
     @Provides
     @Singleton
-    fun providesRouter(cicerone: Cicerone<Router>) : Router{
+    fun providesRouter(cicerone: Cicerone<Router>): Router {
         return cicerone.router
     }
 
     @Provides
     @Singleton
-    fun providesNavigatorHolder(cicerone: Cicerone<Router>) : NavigatorHolder{
+    fun providesNavigatorHolder(cicerone: Cicerone<Router>): NavigatorHolder {
         return cicerone.getNavigatorHolder()
     }
 
     @Provides
     @Singleton
-    fun providesAppScreens() : IScreens{
+    fun providesAppScreens(): IScreens {
         return AppScreens()
     }
 

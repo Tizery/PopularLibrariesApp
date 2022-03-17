@@ -18,7 +18,7 @@ class ReposPresenter @AssistedInject constructor(
     @Assisted private val userModel: GithubUserModel,
     private val router: Router,
     private val reposRepository: IGithubReposRepository
-    ) : MvpPresenter<ReposView>() {
+) : MvpPresenter<ReposView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -54,6 +54,6 @@ class ReposPresenter @AssistedInject constructor(
 }
 
 @AssistedFactory
-interface ReposPresenterFactory{
-    fun assistedPresenter(userModel: GithubUserModel) : ReposPresenter
+interface ReposPresenterFactory {
+    fun assistedPresenter(userModel: GithubUserModel): ReposPresenter
 }

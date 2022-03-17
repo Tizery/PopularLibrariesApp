@@ -7,7 +7,6 @@ import android.net.NetworkRequest
 import androidx.core.content.getSystemService
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.BehaviorSubject
-import io.reactivex.rxjava3.subjects.PublishSubject
 
 class NetworkStatus(context: Context) {
 

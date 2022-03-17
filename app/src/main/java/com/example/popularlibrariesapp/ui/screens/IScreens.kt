@@ -5,8 +5,8 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 interface IScreens {
 
-    fun usersScreen() : FragmentScreen
+    fun usersScreen(): FragmentScreen
 
-    fun reposScreen(user : GithubUserModel) : FragmentScreen
+    fun reposScreen(user: GithubUserModel): FragmentScreen
 
 }

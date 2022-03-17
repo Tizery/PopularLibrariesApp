@@ -22,7 +22,7 @@ class NetworkModule {
 
     @Provides
     @Named(BASE_URL)
-    fun providesBaseUrl() : String{
+    fun providesBaseUrl(): String {
         return "https://api.github.com"
     }
 
@@ -57,7 +57,11 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun providesRetrofit(gson: Gson, okHttpClient: OkHttpClient, @Named(BASE_URL) baseUrl : String): Retrofit {
+    fun providesRetrofit(
+        gson: Gson,
+        okHttpClient: OkHttpClient,
+        @Named(BASE_URL) baseUrl: String
+    ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(gson))
@@ -66,7 +70,7 @@ class NetworkModule {
             .build()
     }
 
-    companion object{
+    companion object {
         private const val BASE_URL = "baseUrl"
     }
 }

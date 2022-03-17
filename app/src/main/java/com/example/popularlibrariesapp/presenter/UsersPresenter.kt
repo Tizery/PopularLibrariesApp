@@ -14,7 +14,7 @@ import javax.inject.Inject
 class UsersPresenter @Inject constructor(
     private val router: Router,
     private val usersRepository: IGithubUsersRepository,
-    private val screens :IScreens
+    private val screens: IScreens
 ) : MvpPresenter<UsersView>() {
 
     override fun onFirstViewAttach() {

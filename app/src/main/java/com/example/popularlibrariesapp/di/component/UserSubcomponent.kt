@@ -10,6 +10,7 @@ import dagger.Subcomponent
         UserModule::class,
     ]
 )
+
 @UserScope
 interface UserSubcomponent {
 

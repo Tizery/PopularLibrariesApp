@@ -10,7 +10,7 @@ class ContextModule(private val context: Context) {
 
     @Provides
     @Singleton
-    fun providesContext() : Context{
+    fun providesContext(): Context {
         return context
     }
 

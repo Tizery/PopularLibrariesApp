@@ -1,7 +1,6 @@
 package com.example.popularlibrariesapp.di.modules
 
 import com.example.popularlibrariesapp.db.cache.GithubUsersCache
-import com.example.popularlibrariesapp.db.dao.UserDao
 import com.example.popularlibrariesapp.di.scope.UserScope
 import com.example.popularlibrariesapp.domain.users.GithubUsersRepository
 import com.example.popularlibrariesapp.domain.users.IGithubUsersRepository

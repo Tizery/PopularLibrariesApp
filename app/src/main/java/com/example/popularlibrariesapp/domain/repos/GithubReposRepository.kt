@@ -14,13 +14,14 @@ class GithubReposRepository @Inject constructor(
     private val networkStatus: NetworkStatus
 ) : IGithubReposRepository {
 
-    override fun getRepos(user: GithubUserModel): Single<List<GithubRepoModel>> = networkStatus.isOnlineSingle()
-        .flatMap { isOnline ->
-            if (isOnline) {
-                githubApiService.getRepos(user.reposUrl)
-                    .flatMap(reposCache::saveRepos)
-            } else {
-                reposCache.getRepos(user)
+    override fun getRepos(user: GithubUserModel): Single<List<GithubRepoModel>> =
+        networkStatus.isOnlineSingle()
+            .flatMap { isOnline ->
+                if (isOnline) {
+                    githubApiService.getRepos(user.reposUrl)
+                        .flatMap(reposCache::saveRepos)
+                } else {
+                    reposCache.getRepos(user)
+                }
             }
-        }
 }

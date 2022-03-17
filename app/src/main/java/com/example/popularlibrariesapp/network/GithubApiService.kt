@@ -9,7 +9,7 @@ import retrofit2.http.Url
 interface GithubApiService {
 
     @GET("/users")
-    fun getUsers() : Single<List<GithubUserModel>>
+    fun getUsers(): Single<List<GithubUserModel>>
 
     @GET
     fun getRepos(@Url reposUrl: String): Single<List<GithubRepoModel>>

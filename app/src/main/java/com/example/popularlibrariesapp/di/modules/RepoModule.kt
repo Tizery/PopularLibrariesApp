@@ -1,7 +1,6 @@
 package com.example.popularlibrariesapp.di.modules
 
 import com.example.popularlibrariesapp.db.cache.GithubReposCache
-import com.example.popularlibrariesapp.db.dao.ReposDao
 import com.example.popularlibrariesapp.di.scope.RepoScope
 import com.example.popularlibrariesapp.domain.repos.GithubReposRepository
 import com.example.popularlibrariesapp.domain.repos.IGithubReposRepository

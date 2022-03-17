@@ -18,13 +18,12 @@ class GithubReposCache @Inject constructor(
 
     }
 
-    override fun getRepos(user : GithubUserModel): Single<List<GithubRepoModel>> {
-       return reposDao.getAll(user.id)
-           .map { list ->
-               list.map { repo -> GithubRepoModel(repo.name, repo.id, Owner(repo.userId)) }
-           }
+    override fun getRepos(user: GithubUserModel): Single<List<GithubRepoModel>> {
+        return reposDao.getAll(user.id)
+            .map { list ->
+                list.map { repo -> GithubRepoModel(repo.name, repo.id, Owner(repo.userId)) }
+            }
     }
-
 
 
 }

@@ -11,5 +11,5 @@ interface UsersView : MvpView {
     fun updateList(users: List<GithubUserModel>)
 
     @Skip
-    fun showError(message : String?)
+    fun showError(message: String?)
 }

@@ -11,7 +11,7 @@ class AppScreens : IScreens {
         UsersFragment.newInstance()
     }
 
-     override fun reposScreen(user: GithubUserModel) = FragmentScreen {
+    override fun reposScreen(user: GithubUserModel) = FragmentScreen {
         ReposFragment.newInstance(user)
     }
 

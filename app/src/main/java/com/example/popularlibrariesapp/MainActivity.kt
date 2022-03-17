@@ -14,10 +14,11 @@ import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
-    val navigator = AppNavigator(this, R.id.container)
+    private val navigator = AppNavigator(this, R.id.container)
 
     @Inject
     lateinit var router: Router
+
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 

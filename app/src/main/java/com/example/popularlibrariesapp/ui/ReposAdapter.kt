@@ -13,14 +13,21 @@ class ReposAdapter(
 ) : ListAdapter<GithubRepoModel, ReposAdapter.RepoViewHolder>(GithubRepoItemCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
-        return RepoViewHolder(ItemReposBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return RepoViewHolder(
+            ItemReposBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
         holder.bind(currentList[position])
     }
 
-    inner class RepoViewHolder(private val binding: ItemReposBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class RepoViewHolder(private val binding: ItemReposBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(repo: GithubRepoModel) {
             binding.root.setOnClickListener { itemClickListener(repo) }
