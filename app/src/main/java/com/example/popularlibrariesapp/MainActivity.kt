@@ -35,7 +35,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         /*//Для работы с Storage Access Framework
         storageAccessFramework(this)*/
 
-        mediaStore(this)
+        /*//Для работы с MediaStore
+        mediaStore(this)*/
     }
 
     override fun onResumeFragments() {
