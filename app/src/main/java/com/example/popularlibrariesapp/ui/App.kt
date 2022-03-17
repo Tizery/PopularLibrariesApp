@@ -5,6 +5,7 @@ import com.example.popularlibrariesapp.di.component.DaggerAppComponent
 import com.example.popularlibrariesapp.di.component.RepoSubcomponent
 import com.example.popularlibrariesapp.di.component.UserSubcomponent
 import com.example.popularlibrariesapp.di.modules.ContextModule
+import com.example.popularlibrariesapp.persistantsstorage.appSpecificFiles
 
 class App : Application() {
 
@@ -26,6 +27,8 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+
+        appSpecificFiles(this)
     }
 
     fun initUserSubcomponent(): UserSubcomponent {
