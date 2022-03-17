@@ -1,11 +1,10 @@
 package com.example.popularlibrariesapp.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.popularlibrariesapp.R
 import com.example.popularlibrariesapp.databinding.FragmentReposBinding
 import com.example.popularlibrariesapp.model.GithubRepoModel
 import com.example.popularlibrariesapp.model.GithubUserModel
@@ -13,7 +12,7 @@ import com.example.popularlibrariesapp.view.ReposView
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener {
+class ReposFragment : MvpAppCompatFragment(R.layout.fragment_repos), ReposView, BackButtonListener {
 
     companion object {
 
@@ -26,14 +25,11 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener {
         }
     }
 
-
     private val userModel by lazy {
         requireArguments().getParcelable<GithubUserModel>(KEY_USER_MODEL)!!
     }
 
-    private var _binding: FragmentReposBinding? = null
-    private val binding: FragmentReposBinding
-        get() = _binding!!
+    private val binding: FragmentReposBinding by viewBinding()
 
     private val presenter by moxyPresenter {
         App.instance.initRepoSubcomponent()
@@ -44,16 +40,6 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener {
     private val adapter by lazy {
         ReposAdapter(presenter::onItemClicked)
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentReposBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,11 +55,6 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener {
     override fun backPressed(): Boolean {
         presenter.backPressed()
         return true
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 
 }

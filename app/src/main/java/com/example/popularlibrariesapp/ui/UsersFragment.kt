@@ -1,11 +1,10 @@
 package com.example.popularlibrariesapp.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.popularlibrariesapp.R
 import com.example.popularlibrariesapp.databinding.FragmentUsersBinding
 import com.example.popularlibrariesapp.model.GithubUserModel
 import com.example.popularlibrariesapp.presenter.UsersPresenter
@@ -14,13 +13,9 @@ import com.example.popularlibrariesapp.view.UsersView
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
+class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), UsersView, BackButtonListener {
 
-    private var _binding: FragmentUsersBinding? = null
-    private val binding: FragmentUsersBinding
-        get() {
-            return _binding!!
-        }
+    private val binding: FragmentUsersBinding by viewBinding()
 
     private val presenter: UsersPresenter by moxyPresenter {
         App.instance.initUserSubcomponent()
@@ -29,19 +24,6 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     private val adapter by lazy {
         UsersAdapter(GlideImageLoader(), presenter::onUserClicked)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentUsersBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
